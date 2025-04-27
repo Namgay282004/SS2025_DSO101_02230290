@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'agent' // This will run on an agent node with label 'agent'
-    }
+    agent any  // This will run on any available node, including the built-in node
     
     triggers {
         pollSCM('* * * * *') // Poll SCM every minute (adjust as needed)
