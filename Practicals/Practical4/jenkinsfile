@@ -1,0 +1,38 @@
+pipeline {
+    agent {
+        label 'agent' // This will run on an agent node with label 'agent'
+    }
+    
+    triggers {
+        pollSCM('* * * * *') // Poll SCM every minute (adjust as needed)
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Test') {
+            when {
+                anyOf {
+                    changeset ".*@test.*"
+                }
+            }
+            steps {
+                script {
+                    if (env.GIT_COMMIT_MESSAGE =~ /@test/) {
+                        sh 'python -m pytest -v'
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline completed'
+        }
+    }
+}
