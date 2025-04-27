@@ -24,11 +24,11 @@ def get_user_input():
 
 def main():
     print("Select any operations:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-    print("5. Exit")
+    print("1-Add")
+    print("2-Subtract")
+    print("3-Multiply")
+    print("4-Divide")
+    print("5-Exit")
     
     while True:
         choice = input("Enter operation as either (1/2/3/4/5): ")
