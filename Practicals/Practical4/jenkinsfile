@@ -1,36 +1,49 @@
-pipeline {
-    agent any  // This will run on any available node, including the built-in node
+// pipeline {
+//     agent any  // This will run on any available node, including the built-in node
     
-    triggers {
-        pollSCM('* * * * *') // Poll SCM every minute (adjust as needed)
-    }
+//     triggers {
+//         pollSCM('* * * * *') // Poll SCM every minute (adjust as needed)
+//     }
     
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
         
-        stage('Test') {
-            when {
-                anyOf {
-                    changeset ".*@test.*"
-                }
-            }
-            steps {
-                script {
-                    if (env.GIT_COMMIT_MESSAGE =~ /@test/) {
-                        sh 'python -m pytest -v'
-                    }
-                }
-            }
-        }
-    }
+//         stage('Test') {
+//             when {
+//                 anyOf {
+//                     changeset ".*@test.*"
+//                 }
+//             }
+//             steps {
+//                 script {
+//                     if (env.GIT_COMMIT_MESSAGE =~ /@test/) {
+//                         sh 'python -m pytest -v'
+//                     }
+//                 }
+//             }
+//         }
+//     }
     
-    post {
-        always {
-            echo 'Pipeline completed'
+//     post {
+//         always {
+//             echo 'Pipeline completed'
+//         }
+//     }
+// }
+
+@Library('my-shared-lib') _
+
+pipeline {
+    agent any
+    stages {
+        stage('Install') {
+            steps {
+                demo()  // This is the function from vars/myFunction.groovy
+            }
         }
     }
 }
