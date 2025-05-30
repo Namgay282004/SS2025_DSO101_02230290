@@ -1,1 +1,0 @@
-console.log('Hello from a simple Node.js app!');
